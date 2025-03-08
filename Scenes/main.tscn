@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3qwp7jxpxu0v"]
+[gd_scene load_steps=8 format=3 uid="uid://c3qwp7jxpxu0v"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_jlju4"]
 [ext_resource type="PackedScene" uid="uid://cu26481qqlegd" path="res://Scenes/player.tscn" id="1_kp03m"]
 [ext_resource type="Texture2D" uid="uid://7tvnf2v6soqc" path="res://Assets/Ground_grass.png" id="2_11n1a"]
 [ext_resource type="FontFile" uid="uid://48832iw7w5av" path="res://Fonts/PixelOperator8.ttf" id="3_7w28o"]
+[ext_resource type="PackedScene" uid="uid://d31jtw2mvajga" path="res://Scenes/enemy.tscn" id="5_ro1tg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ay2hc"]
 texture = ExtResource("2_11n1a")
@@ -40,7 +41,7 @@ position = Vector2(166, 287)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(4, -8)
-zoom = Vector2(4, 4)
+zoom = Vector2(2, 2)
 limit_bottom = 320
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -176,5 +177,8 @@ horizontal_alignment = 1
 
 [node name="TimerGameRestart" type="Timer" parent="."]
 one_shot = true
+
+[node name="Enemy" parent="." instance=ExtResource("5_ro1tg")]
+position = Vector2(355, 274)
 
 [connection signal="timeout" from="TimerGameRestart" to="." method="_on_timer_game_restart_timeout"]

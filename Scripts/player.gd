@@ -14,7 +14,6 @@ var cooldown = false
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var sprint_cooldown_timer: Timer = $SprintCooldownTimer
 @onready var stamina_bar: ProgressBar = $StaminaBar
-@onready var dash_timer: Timer = $DashTimer  # Timer for double-tap detection
 @onready var dash_duration_timer: Timer = $DashDurationTimer  # Timer for dash duration
 @onready var jump_timer: Timer = $JumpTimer
 @onready var boost_timer: Timer = $BoostTimer
@@ -23,6 +22,7 @@ var cooldown = false
 
 func _ready() -> void:
 	stamina_bar.get_theme_stylebox("fill").bg_color = Color(0, 1, 0)
+	add_to_group("player")
 
 func _process(delta: float) -> void:
 	if stamina < 0:
@@ -75,10 +75,13 @@ func _physics_process(delta: float) -> void:
 			stamina -= delta / 2
 		
 	#Jump falloff after dash
-	if is_boosting and not is_on_floor():
+	if is_dashing and not is_on_floor():
+			velocity.x = direction.x * dash_speed
+	if is_boosting and not is_on_floor() and not is_dashing:
 			velocity.x = direction.x * (dash_speed / 1.5)
 
 		# Handle dashing
+
 	if Input.is_action_just_pressed("sprint"): 
 		if direction == Vector2.ZERO:
 			return
@@ -130,6 +133,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("jump2")
 	else:
 		animated_sprite.play("jump")
+		
 # Timers:
 
 # Change bar color back to grey when cooldown ends
@@ -146,7 +150,6 @@ func _on_dash_duration_timer_timeout() -> void:
 # Reset tap count if second Space press was too slow
 func _on_jump_timer_timeout() -> void:
 	tap_count_jump = 0
-
 # Resets boosting after dash
 func _on_boost_timer_timeout() -> void:
 	is_boosting = false

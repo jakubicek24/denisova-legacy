@@ -1,134 +1,134 @@
-[gd_scene load_steps=39 format=3 uid="uid://cu26481qqlegd"]
+[gd_scene load_steps=38 format=3 uid="uid://d31jtw2mvajga"]
 
-[ext_resource type="Texture2D" uid="uid://duwt6sql3v7qp" path="res://Assets/Player_idle.png" id="1_875of"]
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_epcvf"]
-[ext_resource type="Texture2D" uid="uid://cvlwybc1xix5t" path="res://Assets/Player_walking.png" id="3_oprrd"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_126j0"]
+[ext_resource type="Texture2D" uid="uid://duwt6sql3v7qp" path="res://Assets/Player_idle.png" id="2_faib3"]
+[ext_resource type="Texture2D" uid="uid://cvlwybc1xix5t" path="res://Assets/Player_walking.png" id="3_yjv8t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7ms2"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(0, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lqq74"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(22, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhdna"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(44, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b1wgn"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(66, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ic3h4"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(88, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5in81"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(110, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ytf20"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(132, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ck18"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(154, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qkhfr"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(176, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fd4ev"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(198, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hsmam"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(220, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxeto"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(242, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugba4"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(264, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_erfuf"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(286, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hxj7y"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(308, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_edhtc"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(330, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5b0dt"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(352, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx5os"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(374, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_84kyc"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(396, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w5slr"]
-atlas = ExtResource("1_875of")
+atlas = ExtResource("2_faib3")
 region = Rect2(418, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ddmqc"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(132, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_clsd7"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(44, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x27fh"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(110, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvlbi"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(0, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xt1xh"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(22, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vj3ya"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(44, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_twa7c"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(66, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqhdg"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(88, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5xkb"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(110, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_17qdw"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(132, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tx6pm"]
-atlas = ExtResource("3_oprrd")
+atlas = ExtResource("3_yjv8t")
 region = Rect2(154, 0, 22, 28)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jq451"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_0mos2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -249,58 +249,47 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3t5o"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxyxl"]
 radius = 5.0
-height = 23.0
+height = 22.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j30m"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_xawdv"]
+radius = 65.0077
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_paom3"]
-bg_color = Color(0.297136, 0.545402, 0.314036, 1)
-
-[node name="Player" type="CharacterBody2D"]
-z_index = 5
-script = ExtResource("1_epcvf")
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_126j0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5.96046e-08, -12)
-sprite_frames = SubResource("SpriteFrames_jq451")
+sprite_frames = SubResource("SpriteFrames_0mos2")
 animation = &"sprint"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -11.5)
-shape = SubResource("CapsuleShape2D_q3t5o")
+position = Vector2(0, -11)
+shape = SubResource("CapsuleShape2D_oxyxl")
 
-[node name="SprintCooldownTimer" type="Timer" parent="."]
-wait_time = 2.0
+[node name="MoveTimer" type="Timer" parent="."]
 one_shot = true
+autostart = true
 
-[node name="StaminaBar" type="ProgressBar" parent="."]
-modulate = Color(1, 1, 1, 0.356863)
-z_index = 5
-offset_left = -14.0
-offset_top = -29.0
-offset_right = 14.0
-offset_bottom = -27.0
-theme_override_styles/background = SubResource("StyleBoxFlat_6j30m")
-theme_override_styles/fill = SubResource("StyleBoxFlat_paom3")
-step = 1.0
-show_percentage = false
+[node name="ObstacleRay2" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(-30, 0)
 
-[node name="DashDurationTimer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
+[node name="ObstacleRay" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(30, 0)
 
-[node name="JumpTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+[node name="GroundRay" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
 
-[node name="BoostTimer" type="Timer" parent="."]
-wait_time = 0.8
-one_shot = true
+[node name="PlayerDetector" type="Area2D" parent="."]
+position = Vector2(0, -10)
 
-[connection signal="timeout" from="SprintCooldownTimer" to="." method="_on_sprint_cooldown_timer_timeout"]
-[connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]
-[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
-[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_xawdv")
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_shape_entered" from="PlayerDetector" to="." method="_on_player_detector_body_shape_entered"]
