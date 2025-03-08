@@ -4,11 +4,10 @@ var speed = 150.0
 const JUMP_VELOCITY = -250.0
 var stamina = 0
 var staminatext = stamina
-var tap_count_sprint = 0  # Counts Shift presses
 var tap_count_jump = 0  # Counts Space presses
 var is_dashing = false  # Tracks if the player is currently dashing
 var is_boosting = false  # Tracks if the player is currently boosting
-var dash_speed = 300  # Speed during dash
+var dash_speed = 350  # Speed during dash
 var cooldown = false
 
 
@@ -53,13 +52,16 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
+		
 
 	# Handle jump
-	if Input.is_action_just_pressed("jump") and is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 5:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 5 and not is_boosting:
 		stamina += 0.1
 		velocity.y = JUMP_VELOCITY
 		tap_count_jump += 1
 		jump_timer.start()  # Start the timer
+	elif not Input.is_action_just_pressed("jump") and not is_on_floor():
+		velocity.x = direction.x * speed - delta
 		
 	# Double jump
 	if tap_count_jump == 1 and is_boosting == false and Input.is_action_just_pressed("jump") and sprint_cooldown_timer.time_left == 0 and staminatext >= 5 and not is_on_floor():
@@ -76,34 +78,29 @@ func _physics_process(delta: float) -> void:
 	if is_boosting and not is_on_floor():
 			velocity.x = direction.x * (dash_speed / 1.5)
 
-		# Handle double-tap sprint
+		# Handle dashing
 	if Input.is_action_just_pressed("sprint"): 
-		if direction == Vector2.ZERO:  
-			return  # Prevent dashing in place
-		tap_count_sprint += 1
-		if tap_count_sprint == 1:
-			dash_timer.start()  # Start the timer on first tap
-		elif tap_count_sprint == 2:  # Start the dash
-			if direction == Vector2.ZERO:
-				return
-			elif is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
-				is_dashing = true
-				is_boosting = true
-				dash_duration_timer.start()  # Dash lasts for a set duration
-				boost_timer.start()
-				stamina += 0.3
-				print("dash")
-			elif not is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
-				is_dashing = true
-				is_boosting = true
-				velocity.y = JUMP_VELOCITY / 2
-				dash_duration_timer.start()  # Dash lasts for a set duration
-				boost_timer.start()
-				stamina += 0.3
-				print("airdash")
-			else:
-				return
+		if direction == Vector2.ZERO:
+			return
+		elif is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
+			is_dashing = true
+			is_boosting = true
+			dash_duration_timer.start()  # Dash lasts for a set duration
+			boost_timer.start()
+			stamina += 0.3
+			print("dash")
+		elif not is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
+			is_dashing = true
+			is_boosting = true
+			dash_duration_timer.start()  # Dash lasts for a set duration
+			boost_timer.start()
+			stamina += 0.3
+			print("airdash")
+		else:
+			return
 		
+	if is_dashing:
+		velocity.y = 0
 
 	# Change bar color to red when stamina is low
 	if stamina >= 1 and cooldown == false:
@@ -123,10 +120,12 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		if velocity == Vector2(0, 0):
 			animated_sprite.play("idle")
-		elif speed == 150:
+		elif is_boosting:
+				animated_sprite.play("sprint")
+		else:
 			animated_sprite.play("walking")
-		elif is_dashing:
-			animated_sprite.play("jump")
+	elif is_boosting:
+			animated_sprite.play("sprint")
 	elif tap_count_jump == 1:
 		animated_sprite.play("jump2")
 	else:
@@ -143,9 +142,6 @@ func _on_sprint_cooldown_timer_timeout() -> void:
 func _on_dash_duration_timer_timeout() -> void:
 	is_dashing = false  # End dash, return to normal movement
 
-# Reset tap count if second Shift press was too slow
-func _on_dash_timer_timeout() -> void:
-	tap_count_sprint = 0  # Reset tap count if the second tap didn’t happen in time
 
 # Reset tap count if second Space press was too slow
 func _on_jump_timer_timeout() -> void:

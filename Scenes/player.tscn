@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cu26481qqlegd"]
+[gd_scene load_steps=39 format=3 uid="uid://cu26481qqlegd"]
 
 [ext_resource type="Texture2D" uid="uid://duwt6sql3v7qp" path="res://Assets/Player_idle.png" id="1_875of"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_epcvf"]
@@ -84,45 +84,17 @@ region = Rect2(396, 0, 22, 28)
 atlas = ExtResource("1_875of")
 region = Rect2(418, 0, 22, 28)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_o001a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddmqc"]
 atlas = ExtResource("3_oprrd")
-region = Rect2(110, 0, 22, 28)
+region = Rect2(132, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_clsd7"]
 atlas = ExtResource("3_oprrd")
 region = Rect2(44, 0, 22, 28)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_34vfi"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(0, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3x8bi"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(22, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8ohx3"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(44, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0bgpx"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(66, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y3frs"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(88, 0, 22, 28)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_x27fh"]
 atlas = ExtResource("3_oprrd")
 region = Rect2(110, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_54tg0"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(132, 0, 22, 28)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_euhxf"]
-atlas = ExtResource("3_oprrd")
-region = Rect2(154, 0, 22, 28)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fvlbi"]
 atlas = ExtResource("3_oprrd")
@@ -225,7 +197,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_o001a")
+"texture": SubResource("AtlasTexture_ddmqc")
 }],
 "loop": true,
 "name": &"jump",
@@ -241,28 +213,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_34vfi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3x8bi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8ohx3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0bgpx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y3frs")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_x27fh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_54tg0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_euhxf")
 }],
 "loop": true,
 "name": &"sprint",
@@ -313,7 +264,7 @@ script = ExtResource("1_epcvf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(5.96046e-08, -12)
 sprite_frames = SubResource("SpriteFrames_jq451")
-animation = &"jump2"
+animation = &"sprint"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -337,10 +288,6 @@ step = 1.0
 show_percentage = false
 
 [node name="DashDurationTimer" type="Timer" parent="."]
-wait_time = 0.2
-one_shot = true
-
-[node name="DashTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
 
@@ -354,6 +301,5 @@ one_shot = true
 
 [connection signal="timeout" from="SprintCooldownTimer" to="." method="_on_sprint_cooldown_timer_timeout"]
 [connection signal="timeout" from="DashDurationTimer" to="." method="_on_dash_duration_timer_timeout"]
-[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
