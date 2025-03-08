@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
-var speed = 50.0
+var speed = 150.0
 const JUMP_VELOCITY = -250.0
 var stamina = 0
 var staminatext = stamina
-var issprinting = false
 var tap_count_sprint = 0  # Counts Shift presses
-var tap_count_jump = 0
+var tap_count_jump = 0  # Counts Space presses
 var is_dashing = false  # Tracks if the player is currently dashing
-var is_boosting = false
+var is_boosting = false  # Tracks if the player is currently boosting
 var dash_speed = 300  # Speed during dash
 var cooldown = false
 
@@ -61,32 +60,21 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		tap_count_jump += 1
 		jump_timer.start()  # Start the timer
-	
+		
+	# Double jump
 	if tap_count_jump == 1 and is_boosting == false and Input.is_action_just_pressed("jump") and sprint_cooldown_timer.time_left == 0 and staminatext >= 5 and not is_on_floor():
 		stamina += 0.1
 		velocity.y = JUMP_VELOCITY
 		print("doublejump")
 		tap_count_jump = 0
 		
+	# Stamina increase while standing still
+	if stamina > 0 and velocity == Vector2(0, 0) and sprint_cooldown_timer.time_left == 0:
+			stamina -= delta / 2
+		
 	#Jump falloff after dash
 	if is_boosting and not is_on_floor():
 			velocity.x = direction.x * (dash_speed / 1.5)
-
-	# Handle sprinting normally
-	if Input.is_action_pressed("sprint") and is_on_floor() and sprint_cooldown_timer.time_left == 0:
-		
-		speed = 100
-		issprinting = true
-	elif issprinting and Input.is_action_pressed("sprint") and sprint_cooldown_timer.time_left == 0:
-		speed = 90
-	elif issprinting and not is_on_floor():
-		speed = 90
-	else:
-		speed = 50
-		if is_on_floor():
-			issprinting = false
-		if stamina > 0 and velocity == Vector2(0, 0) and sprint_cooldown_timer.time_left == 0:
-			stamina -= delta / 2
 
 		# Handle double-tap sprint
 	if Input.is_action_just_pressed("sprint"): 
@@ -105,7 +93,7 @@ func _physics_process(delta: float) -> void:
 				boost_timer.start()
 				stamina += 0.3
 				print("dash")
-			elif not is_on_floor() and tap_count_jump == 1 and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
+			elif not is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 30:
 				is_dashing = true
 				is_boosting = true
 				velocity.y = JUMP_VELOCITY / 2
@@ -135,13 +123,10 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		if velocity == Vector2(0, 0):
 			animated_sprite.play("idle")
-		elif speed == 50:
+		elif speed == 150:
 			animated_sprite.play("walking")
 		elif is_dashing:
 			animated_sprite.play("jump")
-		else:
-			animated_sprite.play("sprint")
-			stamina += delta / 4
 	elif tap_count_jump == 1:
 		animated_sprite.play("jump2")
 	else:
