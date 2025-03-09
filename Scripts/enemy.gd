@@ -27,6 +27,7 @@ var player = null         # A reference to the player (set when detected)
 @onready var obstacle_ray_2: RayCast2D = $ObstacleRay2
 @onready var ground_ray: RayCast2D = $GroundRay
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var label: Label = $Label
 
 
 
@@ -78,6 +79,8 @@ func _physics_process(delta):
 # -------------------------------------------------------------------------
 #  ROAMING
 # -------------------------------------------------------------------------
+
+
 func roam_state(delta):
 	# Move horizontally toward the current target
 	move_towards(target_position, speed)
@@ -93,12 +96,12 @@ func roam_state(delta):
 	check_obstacles()
 	
 	
-
 func detect_player():
 	# If there's a player reference and they are within the detection range, chase
 	if player and global_position.distance_to(player.global_position) < detection_range:
 		chase_start_position = global_position
 		state = State.CHASING
+	
 
 # -------------------------------------------------------------------------
 #  CHASING
@@ -118,27 +121,37 @@ func chase_state(delta):
 	# If the player is too far away from us OR from where we started chasing,
 	# we return to spawn
 	var dist_to_spawn = global_position.distance_to(spawn_position)
-	var dist_to_chase_start = global_position.distance_to(chase_start_position)
 	var dist_to_player = global_position.distance_to(player.global_position)
 	
-	if dist_to_player > detection_range * 2 or dist_to_spawn > roam_distance * 2 or dist_to_chase_start > roam_distance * 2:
+	if dist_to_player > detection_range * 1.5 or dist_to_spawn > roam_distance * 2:
 		state = State.RETURNING
 
 # -------------------------------------------------------------------------
 #  RETURNING
 # -------------------------------------------------------------------------
 func return_state(delta):
-	# Move back to the spawn position
-	move_towards(spawn_position, speed)
+	# If there's a player reference and they are within the detection range, chase
+	var dist_to_spawn = global_position.distance_to(spawn_position)
+	if player and dist_to_spawn < roam_distance * 1.8:
+		state = State.CHASING
+	else:
+		# Move back to the spawn position
+		move_towards(spawn_position, speed)
+		player = null
+		label.text = "MUST HAVE BEEN THE WIND"
 	
 	# Jump if obstacle
 	check_obstacles()
+	
+
+	
 	# Once we're near the spawn, go back to roaming
-	if global_position.distance_to(spawn_position) < 10:
+	if abs(global_position.x - spawn_position.x) < 10:
 		# After deciding, restart the timer for the next random time
-		set_move_timer()
-		print ("Im back at spawn")
+		label.text = ":)"
 		state = State.ROAMING
+	
+	
 
 # -------------------------------------------------------------------------
 #  TIMER-BASED MOVEMENT / REST
@@ -156,13 +169,11 @@ func _on_move_timer_timeout() -> void:
 			# Calculate a random X offset from the spawn position
 			var random_offset_x = randf_range(-roam_distance, roam_distance)
 			target_position = spawn_position + Vector2(random_offset_x, 0)
-			print("I move.")
+			label.text = "?"
 		else:
 			# Rest: Set the target to our current spot so we remain still
-			print("I rest.")
+			label.text = "..."
 			target_position = global_position
-	else:
-		print("not roaming")
 	# After deciding, restart the timer for the next random time
 	set_move_timer()
 
@@ -181,13 +192,13 @@ func check_obstacles():
 		# Only jump if there's ground in front, so we don't leap into a pit
 		if ground_ray.is_colliding():
 			velocity.y = jump_force
-			print("Watch this!")
+			label.text = ":O"
 
 # -------------------------------------------------------------------------
-#  DETECTING THE PLAYER
+# DETECTING THE PLAYER
 # -------------------------------------------------------------------------
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	# If the body that entered is in the 'player' group, record it
 	if body.is_in_group("player"):
 		player = body
-		print("I see him!")
+		label.text = "!!!"

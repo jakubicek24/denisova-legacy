@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://d31jtw2mvajga"]
+[gd_scene load_steps=39 format=3 uid="uid://d31jtw2mvajga"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_126j0"]
 [ext_resource type="Texture2D" uid="uid://duwt6sql3v7qp" path="res://Assets/Player_idle.png" id="2_faib3"]
 [ext_resource type="Texture2D" uid="uid://cvlwybc1xix5t" path="res://Assets/Player_walking.png" id="3_yjv8t"]
+[ext_resource type="FontFile" uid="uid://48832iw7w5av" path="res://Fonts/PixelOperator8.ttf" id="4_m1vc8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7ms2"]
 atlas = ExtResource("2_faib3")
@@ -275,11 +276,11 @@ autostart = true
 
 [node name="ObstacleRay2" type="RayCast2D" parent="."]
 position = Vector2(0, -10)
-target_position = Vector2(-30, 0)
+target_position = Vector2(-10, 0)
 
 [node name="ObstacleRay" type="RayCast2D" parent="."]
 position = Vector2(0, -10)
-target_position = Vector2(30, 0)
+target_position = Vector2(10, 0)
 
 [node name="GroundRay" type="RayCast2D" parent="."]
 position = Vector2(0, -10)
@@ -289,6 +290,16 @@ position = Vector2(0, -10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
 shape = SubResource("CircleShape2D_xawdv")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -33.0
+offset_top = -38.0
+offset_right = 33.0
+offset_bottom = -29.0
+theme_override_fonts/font = ExtResource("4_m1vc8")
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
