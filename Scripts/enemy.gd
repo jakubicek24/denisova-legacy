@@ -9,7 +9,7 @@ var state = State.ROAMING
 var speed = 50            # Normal (roaming / returning) speed
 var chase_speed = 80      # Faster speed when chasing the player
 var roam_distance = 200   # Max distance from spawn for roaming
-var detection_range = 150 # Distance within which enemy notices the player
+var detection_range = 120 # Distance within which enemy notices the player
 var gravity = 500         # Gravity pulling the enemy down
 var jump_force = -200    # Jump force (negative is upward in 2D)
 
@@ -132,7 +132,7 @@ func chase_state(delta):
 func return_state(delta):
 	# If there's a player reference and they are within the detection range, chase
 	var dist_to_spawn = global_position.distance_to(spawn_position)
-	if player and dist_to_spawn < roam_distance * 1.8:
+	if player and global_position.distance_to(player.global_position) < detection_range and dist_to_spawn < roam_distance * 1.8:
 		state = State.CHASING
 	else:
 		# Move back to the spawn position
