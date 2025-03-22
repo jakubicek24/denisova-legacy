@@ -19,6 +19,7 @@ var facing_right = true
 @onready var jump_timer: Timer = $JumpTimer
 @onready var boost_timer: Timer = $BoostTimer
 @onready var cursor_sprite: AnimatedSprite2D = $Cursor/CursorSprite2D
+@onready var RockScene = preload("res://Scenes/rock.tscn")  # Load your Rock scene
 
 
 
@@ -68,6 +69,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
+	 #  Check if the player pressed the throw action
+	if Input.is_action_just_pressed("throw_rock"):
+		throw_rock()
 		
 
 	# Handle jump
@@ -152,8 +156,36 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("jump2")
 	else:
 		animated_sprite.play("jump")
-		
-# Timers:
+
+
+# ROCK THROWING FUNCTION
+func throw_rock():
+	var direction_to_mouse = get_global_mouse_position() - global_position
+	var spawn_offset_distance = 16.0  # tweak as needed
+	# This normalizes the direction (length = 1) and then multiplies by offset
+	var spawn_offset = direction_to_mouse.normalized() * spawn_offset_distance
+
+	# Check if it's valid to throw (i.e., in front of the player)
+	if facing_right and direction_to_mouse.x < 0.0:
+		return  # do nothing if behind
+	if not facing_right and direction_to_mouse.x > 0.0:
+		return  # do nothing if behind
+	# Otherwise, spawn a rock
+	var rock_instance = RockScene.instantiate()
+	# Position the rock at the player's hand or center
+	rock_instance.global_position = global_position + spawn_offset
+	# Give it an initial velocity
+	# For a simple approach, we can set the linear_velocity in the direction of the mouse
+	# Then, the rock’s own gravity will make it arc.
+	var throw_power = 500.0  # tweak as you like
+	var throw_dir = direction_to_mouse.normalized()
+	rock_instance.throw_velocity = throw_dir * throw_power
+	# Finally, add the rock to the scene tree
+	get_parent().add_child(rock_instance)
+
+
+
+# TIMERS:
 
 # Change bar color back to grey when cooldown ends
 func _on_sprint_cooldown_timer_timeout() -> void:

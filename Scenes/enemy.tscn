@@ -257,7 +257,7 @@ height = 22.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_xawdv"]
 radius = 65.0077
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["Enemy"]]
 script = ExtResource("1_126j0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -266,7 +266,7 @@ sprite_frames = SubResource("SpriteFrames_0mos2")
 animation = &"sprint"
 autoplay = "idle"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
 position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_oxyxl")
 
@@ -275,15 +275,16 @@ one_shot = true
 autostart = true
 
 [node name="ObstacleRay2" type="RayCast2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -5)
 target_position = Vector2(-10, 0)
 
 [node name="ObstacleRay" type="RayCast2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -5)
 target_position = Vector2(10, 0)
 
 [node name="GroundRay" type="RayCast2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(0, -5)
+target_position = Vector2(0, 20)
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 position = Vector2(0, -10)
@@ -303,4 +304,3 @@ vertical_alignment = 1
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_shape_entered" from="PlayerDetector" to="." method="_on_player_detector_body_shape_entered"]

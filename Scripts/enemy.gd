@@ -1,8 +1,7 @@
-extends CharacterBody2D  # Use KinematicBody2D in Godot 3.x
+extends CharacterBody2D
 
 # Possible states for the enemy
 enum State { ROAMING, CHASING, RETURNING }
-
 var state = State.ROAMING
 
 # --- Movement Settings ---
@@ -12,6 +11,11 @@ var roam_distance = 200   # Max distance from spawn for roaming
 var detection_range = 120 # Distance within which enemy notices the player
 var gravity = 500         # Gravity pulling the enemy down
 var jump_force = -200    # Jump force (negative is upward in 2D)
+
+# --- Knockback Settings ---
+var knockback_velocity = Vector2.ZERO
+var knockback_decay = 0.8  # how quickly knockback fades
+var is_knocked_back = false
 
 # --- Positions ---
 var spawn_position        # Where the enemy starts
@@ -45,6 +49,16 @@ func _ready():
 	# Connect the Timer's timeout signal to our function (if not done in the Editor)
 	# move_timer.connect("timeout", self, "_on_MoveTimer_timeout")
 
+# KNOCKBACK FUNCTION
+func apply_knockback(rock_pos: Vector2, force: float):
+	is_knocked_back = true
+	var direction = global_position.direction_to(rock_pos)
+	# direction_to() returns a normalized direction from this node to the argument
+	# If you want the enemy to be pushed away from the rock's position, invert it: 
+	direction = rock_pos.direction_to(global_position)
+
+	knockback_velocity = direction * force
+
 func _physics_process(delta):
 	# Apply gravity each frame
 	velocity.y += gravity * delta
@@ -60,6 +74,14 @@ func _physics_process(delta):
 
 	# Finally, move with collisions
 	move_and_slide()
+	
+	 # apply knockback if active
+	if is_knocked_back:
+		move_and_collide(knockback_velocity * delta)
+		# fade out knockback
+		knockback_velocity = knockback_velocity.lerp(Vector2.ZERO, knockback_decay * delta)
+		if knockback_velocity.length() < 5:
+			is_knocked_back = false
 	
 	# Flip sprite based on movement
 	if velocity.x > 0:
