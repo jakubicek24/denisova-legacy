@@ -9,6 +9,7 @@ var is_dashing = false  # Tracks if the player is currently dashing
 var is_boosting = false  # Tracks if the player is currently boosting
 var dash_speed = 350  # Speed during dash
 var cooldown = false
+var facing_right = true
 
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -17,6 +18,7 @@ var cooldown = false
 @onready var dash_duration_timer: Timer = $DashDurationTimer  # Timer for dash duration
 @onready var jump_timer: Timer = $JumpTimer
 @onready var boost_timer: Timer = $BoostTimer
+@onready var cursor_sprite: AnimatedSprite2D = $Cursor/CursorSprite2D
 
 
 
@@ -29,6 +31,20 @@ func _process(delta: float) -> void:
 		stamina = 0
 	stamina_bar.value = staminatext
 	staminatext = 100 - round(stamina * 100)
+	var direction_to_mouse = get_global_mouse_position() - global_position
+
+	if facing_right:
+		if direction_to_mouse.x < 0.0:
+			cursor_sprite.play("red")
+		else:
+			cursor_sprite.play("white")
+	else:
+	# Facing left
+		if direction_to_mouse.x > 0.0:
+			cursor_sprite.play("red")
+		else:
+			cursor_sprite.play("white")
+		
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -55,7 +71,8 @@ func _physics_process(delta: float) -> void:
 		
 
 	# Handle jump
-	if Input.is_action_just_pressed("jump") and is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 5 and not is_boosting:
+	if Input.is_action_just_pressed("jump") and is_on_floor() and sprint_cooldown_timer.time_left == 0 and staminatext >= 5:
+	#and not is_boosting:
 		stamina += 0.1
 		velocity.y = JUMP_VELOCITY
 		tap_count_jump += 1
@@ -113,13 +130,15 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-	# Flip sprite based on movement
+	# Flip sprite based on movement and set player direction
 	if direction.x > 0:
 		animated_sprite.flip_h = false
+		facing_right = true
 	elif direction.x < 0:
 		animated_sprite.flip_h = true
+		facing_right = false
 	
-		# Play animations
+		# Player animations
 	if is_on_floor():
 		if velocity == Vector2(0, 0):
 			animated_sprite.play("idle")

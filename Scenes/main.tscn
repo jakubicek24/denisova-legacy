@@ -178,7 +178,10 @@ horizontal_alignment = 1
 [node name="TimerGameRestart" type="Timer" parent="."]
 one_shot = true
 
+[node name="Enemy2" parent="." instance=ExtResource("5_ro1tg")]
+position = Vector2(1173, 299)
+
 [node name="Enemy" parent="." instance=ExtResource("5_ro1tg")]
-position = Vector2(355, 274)
+position = Vector2(517, 299)
 
 [connection signal="timeout" from="TimerGameRestart" to="." method="_on_timer_game_restart_timeout"]
