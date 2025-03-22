@@ -252,9 +252,8 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3t5o"]
-radius = 5.0
-height = 23.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xt4dy"]
+size = Vector2(10, 23)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6j30m"]
 
@@ -300,7 +299,7 @@ autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11.5)
-shape = SubResource("CapsuleShape2D_q3t5o")
+shape = SubResource("RectangleShape2D_xt4dy")
 
 [node name="SprintCooldownTimer" type="Timer" parent="."]
 wait_time = 2.0

@@ -9,7 +9,10 @@ func _ready():
 
 func _on_body_entered(body):
 	if body.is_in_group("Enemy"):
-		print ("hit")
+		print ("hit " + str(linear_velocity.length()))
 		# we found an enemy, let’s do something
-		body.apply_knockback(global_position, 300.0)
+		if linear_velocity.length() > 200:
+			body.apply_knockback(global_position, 200)
+		else:
+			body.apply_knockback(global_position, linear_velocity.length())
 		

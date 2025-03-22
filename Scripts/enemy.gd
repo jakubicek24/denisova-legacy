@@ -11,6 +11,8 @@ var roam_distance = 200   # Max distance from spawn for roaming
 var detection_range = 120 # Distance within which enemy notices the player
 var gravity = 500         # Gravity pulling the enemy down
 var jump_force = -200    # Jump force (negative is upward in 2D)
+var max_upward_speed = -200 # Limits jump height
+
 
 # --- Knockback Settings ---
 var knockback_velocity = Vector2.ZERO
@@ -62,7 +64,10 @@ func apply_knockback(rock_pos: Vector2, force: float):
 func _physics_process(delta):
 	# Apply gravity each frame
 	velocity.y += gravity * delta
-
+	
+	if velocity.y < max_upward_speed:
+		velocity.y = max_upward_speed
+	
 	# Act based on the current state
 	match state:
 		State.ROAMING:

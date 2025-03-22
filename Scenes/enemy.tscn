@@ -250,9 +250,8 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxyxl"]
-radius = 5.0
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ex1o"]
+size = Vector2(10, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xawdv"]
 radius = 65.0077
@@ -267,8 +266,8 @@ animation = &"sprint"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Enemy"]]
-position = Vector2(0, -11)
-shape = SubResource("CapsuleShape2D_oxyxl")
+position = Vector2(0, -11.5)
+shape = SubResource("RectangleShape2D_2ex1o")
 
 [node name="MoveTimer" type="Timer" parent="."]
 one_shot = true

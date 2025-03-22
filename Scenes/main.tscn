@@ -182,6 +182,6 @@ one_shot = true
 position = Vector2(1173, 299)
 
 [node name="Enemy" parent="." instance=ExtResource("5_ro1tg")]
-position = Vector2(517, 299)
+position = Vector2(417, 286)
 
 [connection signal="timeout" from="TimerGameRestart" to="." method="_on_timer_game_restart_timeout"]
