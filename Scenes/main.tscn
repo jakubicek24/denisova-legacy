@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3qwp7jxpxu0v"]
+[gd_scene load_steps=9 format=3 uid="uid://c3qwp7jxpxu0v"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_jlju4"]
 [ext_resource type="PackedScene" uid="uid://cu26481qqlegd" path="res://Scenes/player.tscn" id="1_kp03m"]
 [ext_resource type="Texture2D" uid="uid://7tvnf2v6soqc" path="res://Assets/Ground_grass.png" id="2_11n1a"]
 [ext_resource type="FontFile" uid="uid://48832iw7w5av" path="res://Fonts/PixelOperator8.ttf" id="3_7w28o"]
 [ext_resource type="PackedScene" uid="uid://d31jtw2mvajga" path="res://Scenes/enemy.tscn" id="5_ro1tg"]
+[ext_resource type="PackedScene" uid="uid://5snxbxh1fik7" path="res://Scenes/box.tscn" id="6_anduy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ay2hc"]
 texture = ExtResource("2_11n1a")
@@ -183,5 +184,50 @@ position = Vector2(1173, 299)
 
 [node name="Enemy" parent="." instance=ExtResource("5_ro1tg")]
 position = Vector2(417, 286)
+
+[node name="Box9" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-141, 278)
+
+[node name="Box10" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-170, 278)
+
+[node name="Box11" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-145, 264)
+
+[node name="Box12" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-166, 264)
+
+[node name="Box5" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-172, 292)
+
+[node name="Box6" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 220)
+
+[node name="Box7" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 234)
+
+[node name="Box8" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 248)
+
+[node name="Box3" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-139, 292)
+
+[node name="Box4" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 262)
+
+[node name="Box13" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-163, 250)
+
+[node name="Box15" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-156, 236)
+
+[node name="Box14" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-149, 250)
+
+[node name="Box2" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 276)
+
+[node name="Box" parent="." instance=ExtResource("6_anduy")]
+position = Vector2(-27, 292)
 
 [connection signal="timeout" from="TimerGameRestart" to="." method="_on_timer_game_restart_timeout"]
